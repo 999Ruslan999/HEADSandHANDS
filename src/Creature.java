@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Creature {
+public abstract class Creature {
 
     private String klan;
     private int attack;
@@ -21,11 +21,8 @@ public class Creature {
         this.protection = protection;
         this.health = health;
         this.countRestoration = countRestoration;
-
         random = new Random();
-
     }
-
 
     public String getKlan() {
         return klan;
@@ -43,6 +40,7 @@ public class Creature {
     public double getDamage() {
         return damage;
     }
+
     public void setDamage(double damage) {
         this.damage = damage;
     }
@@ -72,6 +70,7 @@ public class Creature {
         System.out.println("Здоровье: " + creature.getHealth());
         System.out.println("~~~~~~~~~~");
     }
+
     // Метод восстановления
     public void heal(Creature creature) {
         double restoration = MAX_HEALTH * 0.3;
@@ -82,6 +81,7 @@ public class Creature {
         System.out.println(creature.getKlan() + " Исцелился ");
         System.out.println("Здоровье: " + getHealth());
         System.out.println("~~~~~~~~~~");
+        // считаем количество восстановлений
         creature.setCountRestoration(creature.getCountRestoration() + 1);
         if (creature.getCountRestoration() > 4) {
             creature.setHealth(creature.getHealth() - restoration);
@@ -90,6 +90,7 @@ public class Creature {
             System.out.println("~~~~~~~~~~");
         }
     }
+
     // Бросок кубика
     public void cube(Creature creature) {
         int diceValue = (int) (Math.random() * 6) + 1;
