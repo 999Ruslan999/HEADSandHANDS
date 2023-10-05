@@ -8,27 +8,11 @@ public class Creature {
     private double health;
     private int countRestoration;
 
-    public int getCountRestoration() {
-        return countRestoration;
-    }
-
-    public void setCountRestoration(int countRestoration) {
-        this.countRestoration = countRestoration;
-    }
-
     private double damage;
-
-    private Creature creature;
     private Random random;
-    public final int MIN_ATTACK = 1;
-    public final int MAX_ATTACK = 30;
-    public final int MIN_PROTECTION = 1;
-    public final int MAX_PROTECTION = 30;
     public final int MIN_DAMAGE = 1;
     public final int MAX_DAMAGE = 6;
-    public final double MAX_HEALTH = 100;
-
-
+    public final double MAX_HEALTH = 15;
 
 
     public Creature(String klan, int attack, int protection, double health, int countRestoration) {
@@ -43,33 +27,11 @@ public class Creature {
     }
 
 
-
     public String getKlan() {
         return klan;
     }
 
-    public void setKlan(String klan) {
-        this.klan = klan;
-    }
-
-    public int getAttack() {
-        return attack;
-    }
-
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
-    public int getProtection() {
-        return protection;
-    }
-
-    public void setProtection(int protection) {
-        this.protection = protection;
-    }
-
     public double getHealth() {
-
         return health;
     }
 
@@ -81,17 +43,25 @@ public class Creature {
     public double getDamage() {
         return damage;
     }
-
     public void setDamage(double damage) {
         this.damage = damage;
     }
 
-
-    public void die() {
-        System.out.println("GAME OVER");
+    public int getCountRestoration() {
+        return countRestoration;
     }
 
-    // метод атаки
+    public void setCountRestoration(int countRestoration) {
+        this.countRestoration = countRestoration;
+    }
+
+    // Если игрок погиб - GAME OVER
+    public void die() {
+        System.out.println("GAME OVER");
+        System.out.println("~~~~~~~~~~");
+    }
+
+    // Метод атаки
     public void dam(Creature creature) {
         damage = random.nextInt(MAX_DAMAGE) + MIN_DAMAGE;
         creature.setHealth(creature.getHealth() - damage);
@@ -100,10 +70,9 @@ public class Creature {
         }
         System.out.println(creature.getKlan() + " Получил урон " + getDamage());
         System.out.println("Здоровье: " + creature.getHealth());
+        System.out.println("~~~~~~~~~~");
     }
-
-
-    // метод восстановления (ещё не готов)
+    // Метод восстановления
     public void heal(Creature creature) {
         double restoration = MAX_HEALTH * 0.3;
         creature.setHealth(creature.getHealth() + restoration);
@@ -112,23 +81,36 @@ public class Creature {
         }
         System.out.println(creature.getKlan() + " Исцелился ");
         System.out.println("Здоровье: " + getHealth());
+        System.out.println("~~~~~~~~~~");
         creature.setCountRestoration(creature.getCountRestoration() + 1);
-        if(creature.getCountRestoration() > 4) {
+        if (creature.getCountRestoration() > 4) {
             creature.setHealth(creature.getHealth() - restoration);
             System.out.println("Возродиться можно только 4 раза");
             System.out.println("Возрождённое здоровье изъято");
+            System.out.println("~~~~~~~~~~");
         }
-
-
     }
-
-
-
-
-
-
-
-
+    // Бросок кубика
+    public void cube(Creature creature) {
+        int diceValue = (int) (Math.random() * 6) + 1;
+        switch (diceValue) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                System.out.println("Выпало: " + diceValue + " Ход пропущен");
+                System.out.println("~~~~~~~~~~");
+                break;
+            case 5:
+            case 6:
+                System.out.println("Выпало: " + diceValue);
+                creature.dam(creature);
+                break;
+            default:
+                System.out.println("Ошибка: недопустимое значение");
+                System.out.println("~~~~~~~~~~");
+        }
+    }
 
     @Override
     public String toString() {
@@ -136,6 +118,6 @@ public class Creature {
                 ", Атака = " + attack +
                 ", Защита = " + protection +
                 ", Здоровье = " + health +
-                ", Количество возрождений = " + countRestoration;
+                ", Использовал возрождений = " + countRestoration;
     }
 }
