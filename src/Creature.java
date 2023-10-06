@@ -56,7 +56,7 @@ public abstract class Creature {
     // Если игрок погиб - GAME OVER
     public void die() {
         System.out.println("GAME OVER");
-        System.out.println("~~~~~~~~~~");
+
     }
 
     // Метод атаки
@@ -64,11 +64,16 @@ public abstract class Creature {
         damage = random.nextInt(MAX_DAMAGE) + MIN_DAMAGE;
         creature.setHealth(creature.getHealth() - damage);
         if (creature.getHealth() <= 0) {
+            creature.setHealth(0);
+            System.out.println(creature.getKlan() + " Получил урон " + getDamage());
+            System.out.println("Здоровье: " + creature.getHealth());
             creature.die();
+        } else {
+            System.out.println(creature.getKlan() + " Получил урон " + getDamage());
+            System.out.println("Здоровье: " + creature.getHealth());
+            System.out.println("~~~~~~~~~~");
         }
-        System.out.println(creature.getKlan() + " Получил урон " + getDamage());
-        System.out.println("Здоровье: " + creature.getHealth());
-        System.out.println("~~~~~~~~~~");
+
     }
 
     // Метод восстановления
