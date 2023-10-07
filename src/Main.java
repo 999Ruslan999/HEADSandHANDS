@@ -19,35 +19,38 @@ public class Main {
         // После каждого запуска будет всегда разный исход
 
 
-
         Player player = new Player("Игрок", 5, 5, 15, 0);
         Monster monster = new Monster("Монстр", 5, 5, 15, 0);
 
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Запустить игру нажмите 1");
+        System.out.println("Что бы запустить игру нажмите 1");
         int cast = scanner.nextInt();
         if (cast == 1) {
         }
 
-           for(int i = 3; i >= 1; i--) {
-               System.out.println(i + " ");
-               Thread.sleep(1000);
-           }
-        System.out.println("ИГРА НАЧАЛАСЬ");
+        for (int i = 3; i >= 1; i--) {
+            System.out.println(i + " ");
+            Thread.sleep(1000);
+        }
 
-        player.cube(player);
-        monster.cube(monster);
-        player.cube(player);
-        monster.cube(monster);
+        System.out.println("ИГРА НАЧАЛАСЬ");
+        System.out.println("Ходит Игрок");
+        player.cube(monster);
+        System.out.println("Ходит Монстр");
+        monster.cube(player);
+        System.out.println("Ходит Игрок");
+        player.cube(monster);
+        System.out.println("Ходит Монстр");
+        monster.cube(player);
         player.heal(player);
         monster.heal(monster);
-        player.dam(monster);
-        monster.dam(player);
+        System.out.println("Ходит Игрок");
+        player.cube(monster);
+        System.out.println("Ходит Монстр");
+        monster.cube(player);
+        System.out.println("Данные об участниках");
         System.out.println(player);
-        System.out.println();
         System.out.println(monster);
     }
-
-
 }
